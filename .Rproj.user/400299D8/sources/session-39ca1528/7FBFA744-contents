@@ -1,0 +1,90 @@
+---
+title: "Advanced R Homework_1"
+author: "24204862-Bhargava K"
+format: pdf
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(ggplot2)
+```
+
+### ***Introduction:***
+
+The CO2 dataset was utilized in this task. Measurements of plants uptake of carbon dioxide in various environmental are included in this dataset.
+
+```{r}
+# Load required dataset
+data("CO2")
+
+# Remove rows with missing values for plotting
+data <- na.omit(CO2)
+
+# View first few rows of the dataset
+head(CO2)
+```
+
+The variables include:
+
+-   **Plant:** Plant ID
+
+-   **Type:** Plant origin (Quebec or Mississippi)
+
+-   **Treatment:** Whether the plant was chilled or not
+
+-   **conc:** Ambient CO2 concentration
+
+-   **uptake:** Rate of CO2 absorption (*response variable*)
+
+### *Plotting the dataset*
+
+```{r}
+#Creating subset with non-chilled data
+co2_chilled <- subset(CO2, Treatment == "chilled")
+
+# Plotting the chilled data.
+ggplot(co2_chilled, aes(x = conc, y = uptake, color = Type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "CO2 Uptake in Chilled Plants",
+    x = "CO2 Concentration",
+    y = "CO2 Uptake",
+    color = "Plant Type"
+  ) +
+  theme_minimal()
+```
+
+-   As CO2 concentration goes up, both types of plants absorb more CO2. This is expected because more CO2 in the air generally means more available for photosynthesis.
+
+-   At every concentration level, Quebec plants show higher uptake than Mississippi plants. Their red trend line is steeper and higher, indicating stronger CO2 absorption.
+
+-   Since this plot is only for chilled plants, it suggests that Quebec plants are more efficient at CO2 uptake under cold conditions compared to Mississippi plants.
+
+```{r}
+#Creating subset with non-chilled data
+co2_nonchilled <- subset(CO2, Treatment == "nonchilled")
+
+# Plotting the non-chilled data.
+ggplot(co2_nonchilled, aes(x = conc, y = uptake, color = Type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "CO2 Uptake in Non-Chilled Plants",
+    x = "CO2 Concentration",
+    y = "CO2 Uptake",
+    color = "Plant Type"
+  ) +
+  theme_minimal()
+```
+
+-   As the concentration of CO2 goes up, the uptake rate also increases for both Quebec and Mississippi plants.
+
+-   Compared to the chilled plot, Mississippi plants have higher uptake rates here. That means warmer conditions helped them absorb more CO2.
+
+-   Quebec plants still outperform Mississippi plants across all CO2 levels,their line is higher and steeper.
+
+-   The difference in uptake between the two plant types is smaller under non-chilled conditions, meaning Mississippi plants benefited more from the warmth than Quebec plants did.

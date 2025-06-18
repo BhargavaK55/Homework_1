@@ -42,20 +42,18 @@ The variables include:
 ### *Plotting the dataset*
 
 ```{r}
-#Creating subset with non-chilled data
-co2_chilled <- subset(CO2, Treatment == "chilled")
+co2_chilled <- subset(data, Treatment == "chilled")
 
-# Plotting the chilled data.
 ggplot(co2_chilled, aes(x = conc, y = uptake, color = Type)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   labs(
     title = "CO2 Uptake in Chilled Plants",
-    x = "CO2 Concentration",
-    y = "CO2 Uptake",
+    x = "CO2 Concentration", y = "CO2 Uptake",
     color = "Plant Type"
   ) +
   theme_minimal()
+
 ```
 
 -   As CO2 concentration goes up, both types of plants absorb more CO2. This is expected because more CO2 in the air generally means more available for photosynthesis.

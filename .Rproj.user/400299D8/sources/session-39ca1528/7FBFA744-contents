@@ -63,20 +63,18 @@ ggplot(co2_chilled, aes(x = conc, y = uptake, color = Type)) +
 -   Since this plot is only for chilled plants, it suggests that Quebec plants are more efficient at CO2 uptake under cold conditions compared to Mississippi plants.
 
 ```{r}
-#Creating subset with non-chilled data
-co2_nonchilled <- subset(CO2, Treatment == "nonchilled")
+co2_nonchilled <- subset(data, Treatment == "nonchilled")
 
-# Plotting the non-chilled data.
 ggplot(co2_nonchilled, aes(x = conc, y = uptake, color = Type)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   labs(
     title = "CO2 Uptake in Non-Chilled Plants",
-    x = "CO2 Concentration",
-    y = "CO2 Uptake",
+    x = "CO2 Concentration", y = "CO2 Uptake",
     color = "Plant Type"
   ) +
   theme_minimal()
+
 ```
 
 -   As the concentration of CO2 goes up, the uptake rate also increases for both Quebec and Mississippi plants.
